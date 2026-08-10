@@ -117,6 +117,7 @@
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
+    nodejs
     fastfetch
     curl
     wget
