@@ -19,19 +19,32 @@
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
 #zapret
- systemd.services.zapret-auto = {
+  systemd.services.zapret-auto = {
     description = "Zapret Bypass Service";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
+    # Даем службе доступ ко всем системным командам NixOS
+    path = with pkgs; [ 
+      nftables 
+      iptables 
+      gawk 
+      curl 
+      wget 
+      coreutils 
+      procps 
+      bash 
+    ];
+
     serviceConfig = {
       Type = "simple";
-      # Запускаем скрипт из вашей папки с флагом --config
       ExecStart = "/home/slfhrmfn/zapret-discord-youtube-linux/service.sh run --config /home/slfhrmfn/zapret-discord-youtube-linux/conf.env";
       Restart = "always";
       RestartSec = "5";
-      # Указываем рабочую директорию, чтобы скрипт видел свои списки доменов
       WorkingDirectory = "/home/slfhrmfn/zapret-discord-youtube-linux";
+      
+      # Дополнительно передаем базовый PATH
+      Environment = "PATH=/run/current-system/sw/bin";
     };
   };
 #moe1
