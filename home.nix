@@ -17,6 +17,34 @@
     ]))
   ];
 
+  # Декларативная настройка Vim
+  programs.vim = {
+    enable = true;
+    
+    # Включаем базовые удобства
+    settings = {
+      number = true;         # Показывать номера строк
+      relativenumber = false; # Отключаем относительные номера
+      tabstop = 4;           # Размер табуляции (4 пробела)
+      shiftwidth = 4;        # Размер отступа при автосдвиге
+      expandtab = true;      # Конвертировать табы в пробелы
+    };
+
+    # Дополнительные команды для файла .vimrc
+    extraConfig = ''
+      syntax on              " Включить подсветку синтаксиса
+      set mouse=a            " Разрешить работу мышкой (выделение, скролл)
+      set clipboard=unnamedplus " Системный буфер обмена (Ctrl+C / Ctrl+V)
+      set ignorecase         " Игнорировать регистр при поиске
+      set smartcase          " Но учитывать регистр, если есть заглавная буква
+      
+      " Красивая цветовая схема по умолчанию
+      colorscheme desert
+    '';
+  };
+
+
+
   # Конфигурация Ghostty через Home Manager
   programs.ghostty = {
     enable = true;
