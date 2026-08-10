@@ -19,7 +19,21 @@
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
 #zapret
+ systemd.services.zapret-auto = {
+    description = "Zapret Bypass Service";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
 
+    serviceConfig = {
+      Type = "simple";
+      # Запускаем скрипт из вашей папки с флагом --config
+      ExecStart = "/home/slfhrmfn/zapret-discord-youtube-linux/service.sh run --config /home/slfhrmfn/zapret-discord-youtube-linux/conf.env";
+      Restart = "always";
+      RestartSec = "5";
+      # Указываем рабочую директорию, чтобы скрипт видел свои списки доменов
+      WorkingDirectory = "/home/slfhrmfn/zapret-discord-youtube-linux";
+    };
+  };
 #moe1
 # Включаем nftables, так как он обязателен для работы скрипта zapret
 networking.nftables.enable = true;
