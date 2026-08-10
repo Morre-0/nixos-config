@@ -17,6 +17,9 @@
     substituters = [ "https://nixos.org" ];
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
+#moe1
+# Включаем nftables, так как он обязателен для работы скрипта zapret
+networking.nftables.enable = true;
 
   # Bootloader
   boot.loader.timeout = 5;
