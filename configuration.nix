@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+/ config, pkgs, ... }:
 
 {
   imports = [ 
@@ -19,7 +19,7 @@
     experimental-features = [ "nix-command" "flakes" ];
   };
 #hypr
-programs.hyprland.enable = true;
+#programs.hyprland.enable = true;
 
 #1341324
 # Разрешаем запускать git push в папке /etc/nixos без пароля root
