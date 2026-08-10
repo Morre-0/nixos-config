@@ -118,6 +118,7 @@
   environment.systemPackages = with pkgs; [
     neovim
     nodejs
+    python3
     fastfetch
     curl
     wget
