@@ -7,7 +7,7 @@
       # Точный хэш коммита (для воспроизводимости Flakes)
       rev = "master"; 
       # Специальный хэш безопасности (Nix проверит целостность скачанного)
-      sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+            sha256 = "sha256-Dxg7vo5KdfB6eemTfoZy1UmC1i3dfGWsJBirExehdps=";
     };
     # Разрешаем обновлять файлы, если репозиторий изменится
     recursive = true;
