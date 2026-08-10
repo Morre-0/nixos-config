@@ -12,8 +12,9 @@
 #moe2
 #moe3
 environment.shellAliases = {
-  nix-upgrade = "cd /etc/nixos && nix flake update; git add flake.lock; git commit -m 'Update' || true; nixos-rebuild switch --flake .#nix-btw";
+  nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add flake.lock; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw";
 };
+
 
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 #moe
