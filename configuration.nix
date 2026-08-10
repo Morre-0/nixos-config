@@ -21,10 +21,14 @@
 
 
 #1341324
-# Правильная передача SSH-окружения через extraConfig
-security.sudo.extraConfig = ''
-  Defaults keepenv += "SSH_AUTH_SOCK"
-'';
+# Разрешаем запускать git push в папке /etc/nixos без пароля root
+security.sudo.extraRules = [{
+  users = [ "slfhrmfn" ];
+  commands = [{
+    command = "/run/current-system/sw/bin/git -C /etc/nixos push origin master";
+    options = [ "NOPASSWD" ];
+  }];
+}];
 
 # Служба автозапуска zapret
   systemd.services.zapret-auto = {
