@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     ghostty
     vlc
-    zsh
+    steam-run
   ];
 
   # Конфигурация Ghostty через Home Manager
