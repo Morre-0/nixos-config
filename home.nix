@@ -9,6 +9,12 @@
     steam-run
     gcc
     luarocks
+     # Создаем изолированное окружение пользователя с Python и Pip
+    (python3.withPackages (ps: with ps; [
+      pip
+      virtualenv
+      setuptools
+    ]))
   ];
 
   # Конфигурация Ghostty через Home Manager
