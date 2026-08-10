@@ -19,7 +19,8 @@
     experimental-features = [ "nix-command" "flakes" ];
   };
 
-
+#1341324
+security.sudo.keepEnv = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJZ9GWrUp9T4S/NmWpoUEZ17gIWIctr5i01G2yo9arhT" ];
   # Служба автозапуска zapret
   systemd.services.zapret-auto = {
     description = "Zapret Bypass Service";
