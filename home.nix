@@ -2,6 +2,42 @@
   # Версия Home Manager
   home.stateVersion = "26.05"; 
 
+
+
+
+  # Настройка Hyprland через Home Manager
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      # Кнопка Super (Win) в качестве главного модификатора
+      "$mainMod" = "SUPER";
+
+      # Ваши горячие клавиши
+      bind = [
+        # Открыть терминал Ghostty по нажатию Win + Enter
+	"$mainMod, Return, exec, ghostty"
+        
+        # Закрыть активное окно по нажатию Win + C
+        "$mainMod, C, killactive,"
+        
+        # Выйти из Hyprland по нажатию Win + M
+        "$mainMod, M, exit,"
+      ];
+
+      # Базовые настройки графики
+      decoration = {
+        rounding = 10; # Скругление углов окон
+        blur = {
+          enabled = true;
+          size = 3;
+        };
+      };
+    };
+  };
+
+
+
+
   # Переносим ваши пользовательские пакеты сюда
   home.packages = with pkgs; [
     ghostty
