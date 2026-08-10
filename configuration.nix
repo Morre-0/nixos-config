@@ -10,6 +10,11 @@
       ./hardware-configuration.nix
     ];
 #moe2
+#moe3
+environment.shellAliases = {
+  nix-upgrade = "cd /etc/nixos && nix flake update; git add flake.lock; git commit -m 'Update' || true; nixos-rebuild switch --flake .#nix-btw";
+};
+
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 #moe
   nix.settings = {
