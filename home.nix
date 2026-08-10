@@ -5,6 +5,8 @@
   # Переносим ваши пользовательские пакеты сюда
   home.packages = with pkgs; [
     ghostty
+    btop
+    htop
     vlc
     steam-run
     gcc
