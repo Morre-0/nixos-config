@@ -1,7 +1,9 @@
 { pkgs, ... }: {
   # Версия Home Manager
   home.stateVersion = "26.05"; 
-  # Переносим ваши пользовательские пакеты сюда
+
+
+# Переносим ваши пользовательские пакеты сюда
   home.packages = with pkgs; [
     ghostty
     btop
