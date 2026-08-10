@@ -7,6 +7,7 @@
     ghostty
     btop
     htop
+    cmus
     vlc
     steam-run
     gcc
