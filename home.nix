@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     ghostty
     vlc
+    zsh
   ];
 
   # Конфигурация Ghostty через Home Manager
