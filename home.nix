@@ -7,6 +7,8 @@
     ghostty
     vlc
     steam-run
+    gcc
+    luarocks
   ];
 
   # Конфигурация Ghostty через Home Manager
