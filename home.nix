@@ -1,19 +1,18 @@
 { pkgs, ... }: {
-  # Автоматически скачиваем и устанавливаем NvChad с GitHub
-  home.file.".config/nvim" = {
+  # Версия Home Manager
+  home.stateVersion = "26.05"; 
+
+  # Автоматически скачиваем NvChad и копируем файлы по-настоящему (для записи)
+  xdg.configFile."nvim" = {
     source = pkgs.fetchFromGitHub {
       owner = "Morre-0";
       repo = "nvchad-config";
-      # Точный хэш коммита (для воспроизводимости Flakes)
       rev = "master"; 
-      # Специальный хэш безопасности (Nix проверит целостность скачанного)
-            sha256 = "sha256-Dxg7vo5KdfB6eemTfoZy1UmC1i3dfGWsJBirExehdps=";
+      sha256 = "sha256-Dxg7vo5KdfB6eemTfoZy1UmC1i3dfGWsJBirExehdps=";
     };
-    # Разрешаем обновлять файлы, если репозиторий изменится
+    # Этот флаг в xdg.configFile копирует файлы как обычные (writable), а не как read-only ссылки
     recursive = true;
   };
-  # Версия Home Manager (оставляем ту, что была)
-  home.stateVersion = "26.05"; 
 
   # Переносим ваши пользовательские пакеты сюда
   home.packages = with pkgs; [
