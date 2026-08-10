@@ -17,6 +17,20 @@
     substituters = [ "https://nixos.org" ];
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
+#zapret
+  # Включаем официальную службу zapret с вашей стратегией general_alt11.bat
+  services.zapret = {
+    enable = true;
+    
+    # Автоматически загружать параметры из репозитория
+    params = [
+      "--nfwqws-enable=yes"
+      
+      # Параметры стратегии general_alt11 (split по умолчанию)
+      "--filter-tcp=80,443 --dpi-desync=split2"
+      "--filter-udp=443,50000-65535 --dpi-desync=fake --dpi-desync-repeats=6"
+    ];
+  };
 #moe1
 # Включаем nftables, так как он обязателен для работы скрипта zapret
 networking.nftables.enable = true;
