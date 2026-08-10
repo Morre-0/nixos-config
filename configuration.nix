@@ -65,18 +65,18 @@
 
   networking.hostName = "nix-btw";
   networking.networkmanager.enable = true;
-    # Включаем systemd-resolved для управления DNS
+  # Включаем systemd-resolved для управления DNS
   services.resolved = {
     enable = true;
     
     # Основной шифрованный DNS-сервер Comss.one с TLS-именем
     fallbackDns = [ "83.220.169.155#dns.comss.one" "212.109.195.93#dns.comss.one" ];
     
-    # Жестко включаем DNS-over-TLS (шифрование трафика)
+    # Жестко включаем DNS-over-TLS (шифрование трафика) через блок settings
     dnssec = "true";
-    extraConfig = ''
-      DNSOverTLS=yes
-    '';
+    settings = {
+      DNSOverTLS = "yes";
+    };
   };
 
   # Говорим NetworkManager использовать systemd-resolved для резолва доменов
