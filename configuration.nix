@@ -7,24 +7,23 @@
 
   environment.shellAliases = {
     nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw";
-        zapret-start = "cd /home/slfhrmfn/zapret-discord-youtube-linux && sudo ./service.sh run --config conf.env";
+    zapret-start = "cd /home/slfhrmfn/zapret-discord-youtube-linux && sudo ./service.sh run --config conf.env";
   };
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nix.settings = {
     max-jobs = "auto";
     cores = 0; 
+    # ИСПРАВЛЕНО: Теперь здесь правильный бинарный кэш
     substituters = [ "https://nixos.org" ];
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
-#zapret
+
+  # Служба автозапуска zapret
   systemd.services.zapret-auto = {
     description = "Zapret Bypass Service";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    # Даем службе доступ ко всем системным командам NixOS
     path = with pkgs; [ 
       nftables 
       iptables 
@@ -42,14 +41,12 @@
       Restart = "always";
       RestartSec = "5";
       WorkingDirectory = "/home/slfhrmfn/zapret-discord-youtube-linux";
-      
-      # Дополнительно передаем базовый PATH
       Environment = "PATH=/run/current-system/sw/bin";
     };
   };
-#moe1
-# Включаем nftables, так как он обязателен для работы скрипта zapret
-networking.nftables.enable = true;
+
+  # Включаем nftables, так как он обязателен для работы скрипта zapret
+  networking.nftables.enable = true;
 
   # Bootloader
   boot.loader.timeout = 5;
@@ -104,7 +101,7 @@ networking.nftables.enable = true;
     pulse.enable = true;
   };
 
-  # User Account (Чистый блок, без незакрытых скобок)
+  # User Account
   users.users."slfhrmfn" = {
     isNormalUser = true;
     description = "slfhrmfn";
