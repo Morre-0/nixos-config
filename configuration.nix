@@ -6,7 +6,7 @@
   ];
 
   environment.shellAliases = {
-    nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw";
+    nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw && sudo git push origin master || true";
     zapret-start = "cd /home/slfhrmfn/zapret-discord-youtube-linux && sudo ./service.sh run --config conf.env";
   };
 
