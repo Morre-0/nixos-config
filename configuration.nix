@@ -23,7 +23,7 @@
 #1341324
 # Правильная передача SSH-окружения через extraConfig
 security.sudo.extraConfig = ''
-  Defaults keepenv += "g66YLDIaKP3jCY6VvDR7k0Zpo828X8eLTPp0XkCnYBo"
+  Defaults keepenv += "SSH_AUTH_SOCK"
 '';
 
 # Служба автозапуска zapret
