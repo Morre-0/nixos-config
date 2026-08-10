@@ -72,10 +72,12 @@
     # Основной шифрованный DNS-сервер Comss.one с TLS-именем
     fallbackDns = [ "83.220.169.155#dns.comss.one" "212.109.195.93#dns.comss.one" ];
     
-    # Жестко включаем DNS-over-TLS (шифрование трафика) через блок settings
+    # Жестко включаем DNS-over-TLS внутри секции Resolve
     dnssec = "true";
     settings = {
-      DNSOverTLS = "yes";
+      Resolve = {
+        DNSOverTLS = "yes";
+      };
     };
   };
 
