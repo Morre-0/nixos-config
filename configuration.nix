@@ -18,6 +18,20 @@
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
     experimental-features = [ "nix-command" "flakes" ];
   };
+#1324132
+  # Включаем systemd-resolved и передаем настройки из статьи напрямую
+  services.resolved = {
+    enable = true;
+    extraConfig = ''
+      [Resolve]
+      DNS=83.220.169.155#dns.comss.one
+      DNSOverTLS=yes
+    '';
+  };
+
+  # Переключаем NetworkManager на использование systemd-resolved
+  networking.networkmanager.dns = "systemd-resolved";
+
 
   # Служба автозапуска zapret
   systemd.services.zapret-auto = {
