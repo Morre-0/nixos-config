@@ -9,7 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
+#moe2
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
 #moe
   nix.settings = {
     # Скачивать пакеты параллельно
