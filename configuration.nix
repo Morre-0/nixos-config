@@ -117,6 +117,7 @@
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
+    vim
     nodejs
     python3
     fastfetch
