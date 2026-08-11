@@ -2,8 +2,7 @@
   # Версия Home Manager
   home.stateVersion = "26.05"; 
 
-
-# Переносим ваши пользовательские пакеты сюда
+  # Пользовательские пакеты
   home.packages = with pkgs; [
     ghostty
     btop
@@ -13,50 +12,51 @@
     steam-run
     gcc
     luarocks
-     # Создаем изолированное окружение пользователя с Python и Pip
+    
+    # ИСПРАВЛЕНО: Добавляем сам пакет pywalfox в систему
+    pywalfox
+
+    # Изолированное окружение пользователя с Python и Pip
     (python3.withPackages (ps: with ps; [
       pip
       virtualenv
       setuptools
     ]))
   ];
-    programs.firefox = {
+
+  # Настройка Firefox с поддержкой Pywalfox
+  programs.firefox = {
     enable = true;
     nativeMessagingHosts = with pkgs; [
       pywalfox
     ];
   };
 
-
-home.sessionPath = [
+  # Добавление локальной бинарной папки в PATH
+  home.sessionPath = [
     "$HOME/.local/bin"
-    ];
+  ];
+
   # Декларативная настройка Vim
   programs.vim = {
     enable = true;
     
-    # Включаем базовые удобства
     settings = {
       number = true;         # Показывать номера строк
-      relativenumber = true; # Отключаем относительные номера
+      relativenumber = true; # Относительные номера строк
       tabstop = 4;           # Размер табуляции (4 пробела)
       shiftwidth = 4;        # Размер отступа при автосдвиге
       expandtab = true;      # Конвертировать табы в пробелы
     };
 
-    # Дополнительные команды для файла .vimrc
     extraConfig = ''
       syntax on              " Включить подсветку синтаксиса
       set mouse=a            " Разрешить работу мышкой (выделение, скролл)
       set clipboard=unnamedplus " Системный буфер обмена (Ctrl+C / Ctrl+V)
       set ignorecase         " Игнорировать регистр при поиске
       set smartcase          " Но учитывать регистр, если есть заглавная буква
-      
-      " Красивая цветовая схема по умолчанию
     '';
   };
-
-
 
   # Конфигурация Ghostty через Home Manager
   programs.ghostty = {
