@@ -27,16 +27,16 @@
         modules = [
           ./configuration.nix
 
+          # Загружаем сам модуль Disko, чтобы система знала эти команды...
           disko.nixosModules.disko
-          # ИСПРАВЛЕНО: Новый путь к файлу разметки disko
-          ./disk/disko-config.nix
+          # ...НО саму разметку ./disk/disko-config.nix здесь НЕ импортируем,
+          # чтобы не было конфликта с твоим текущим диском!
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             
-            # ИСПРАВЛЕНО: Новый путь к конфигурации пользователя home.nix
             home-manager.users.slfhrmfn = import ./user/home.nix inputs;
 
             home-manager.extraSpecialArgs = { inherit inputs; };
@@ -46,4 +46,3 @@
     };
   };
 }
-
