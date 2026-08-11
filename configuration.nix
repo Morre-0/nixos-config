@@ -1,164 +1,50 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }: {
 
-{
   imports = [
     ./hardware-configuration.nix
+    # ПОДКЛЮЧАЕМ НАШ НОВЫЙ МОДУЛЬ РАБОЧЕГО СТОЛА
+    ./modules/desktop.nix
   ];
 
-  environment.shellAliases = {
-    nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw && sudo git push origin master || true; cd /home/slfhrmfn";
-    zapret-start = "cd /home/slfhrmfn/zapret-discord-youtube-linux && sudo ./service.sh run --config conf.env";
-    nix-clean = "nix-env --delete-generations old && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d && sudo nix-store --optimize && sudo nixos-rebuild boot --flake /etc/nixos/#nix-btw";
-
-  };
-  #dsad
-  programs.git = {
-    enable = true;
-    config = {
-      safe = {
-        directory = "/etc/nixos";
-      };
-    };
-  };
-
-
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-
-  nix.settings = {
-    max-jobs = "auto";
-    cores = 0;
-    substituters = [ "https://nixos.org" ];
-    trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-    experimental-features = [ "nix-command" "flakes" ];
-  };
-
-  # Разрешаем запускать git push в папке /etc/nixos без пароля root
-  security.sudo.extraRules = [{
-    users = [ "slfhrmfn" ];
-    commands = [{
-      command = "/run/current-system/sw/bin/git -C /etc/nixos push origin master";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
-
-  # Служба автозапуска zapret
-  systemd.services.zapret-auto = {
-    description = "Zapret Bypass Service";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-
-    path = with pkgs; [
-      nftables
-      iptables
-      gawk
-      curl
-      wget
-      coreutils
-      procps
-      bash
-    ];
-
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "/home/slfhrmfn/zapret-discord-youtube-linux/service.sh run --config /home/slfhrmfn/zapret-discord-youtube-linux/conf.env";
-      Restart = "always";
-      RestartSec = "5";
-      WorkingDirectory = "/home/slfhrmfn/zapret-discord-youtube-linux";
-      Environment = "PATH=/run/current-system/sw/bin";
-    };
-  };
-
-  networking.nftables.enable = true;
-
-  # Bootloader
-  boot.loader.timeout = 5;
+  # Загрузчик systemd-boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.supportedFilesystems = [ "btrfs" ];
+  boot.initrd.luks.devices."crypted".preLVM = true;
 
-  # Fonts
-  fonts.packages = with pkgs; [
-    corefonts
-    nerd-fonts.jetbrains-mono
-  ];
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
+  # Сеть и локализация
   networking.hostName = "nix-btw";
   networking.networkmanager.enable = true;
-
-  # Locale & TimeZone
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "ru_RU.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "ru_RU.UTF-8";
-    LC_IDENTIFICATION = "ru_RU.UTF-8";
-    LC_MEASUREMENT = "ru_RU.UTF-8";
-    LC_MONETARY = "ru_RU.UTF-8";
-    LC_NAME = "ru_RU.UTF-8";
-    LC_NUMERIC = "ru_RU.UTF-8";
-    LC_PAPER = "ru_RU.UTF-8";
-    LC_TELEPHONE = "ru_RU.UTF-8";
-    LC_TIME = "ru_RU.UTF-8";
-  };
 
-  # Graphics & Desktop (GNOME + NIRI)
-  services.xserver.enable = true;
-  services.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
-
-  # Включаем официальный модуль Niri
-  programs.niri.enable = true;
-
-  # Отключаем дефолтные обрезанные пути systemd, чтобы niri наследовал переменные окружения
-  systemd.user.services.niri.enableDefaultPath = false;
-
-  services.printing.enable = true;
-
-  # Sound
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  # User Account
-  users.users."slfhrmfn" = {
+  # Пользователь системы
+  users.users.slfhrmfn = {
     isNormalUser = true;
     description = "slfhrmfn";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
   };
 
-  programs.firefox.enable = true;
-  nixpkgs.config.allowUnfree = true;
+  # Системные правила для Git
+  programs.git = {
+    enable = true;
+    config.safe.directory = "/etc/nixos";
+  };
 
-  # System Packages
+  # Базовый софт для терминала
   environment.systemPackages = with pkgs; [
-    neovim
-    pipx
-    alacritty
-    vim
-    nodejs
-    python3
-    fastfetch
+    nvim
+    git
     curl
     wget
-    git
-
-    # Окружение Niri
-    ghostty # Наш основной терминал
-    fuzzel # Родной, быстрый Wayland-лаунчер приложений для Niri
-    swaybg # Обои
-    noctalia-shell
-    noctalia-qs
-    waybar # Статус-бар
   ];
 
+  # Алиасы команд
+  environment.shellAliases = {
+    nix-clean = "nix-env --delete-generations old && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d && sudo nix-store --optimize && sudo nixos-rebuild boot --flake /etc/nixos/#nix-btw";
+  };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "26.05";
 }
 
