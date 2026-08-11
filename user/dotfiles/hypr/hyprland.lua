@@ -51,16 +51,20 @@ local menu        = "fuzzel"
 ---- AUTOSTART ----
 -------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
---
-   hl.on("hyprland.start", function ()
-   hl.exec_cmd(noctalia-shell)
---   hl.exec_cmd("nm-applet")
---   hl.exec_cmd("waybar & hyprpaper & firefox")
- end)
+-- Официальный автозапуск для Hyprland на базе Lua (версия 0.55+)
+hl.on("hyprland.start", function ()
+    -- Запуск статус-бара Waybar
+    hl.exec_cmd("waybar")
+    
+    -- Запуск менеджера обоев
+    hl.exec_cmd("swww init")
+    
+    -- Запуск сервера уведомлений
+    hl.exec_cmd("dunst")
+    
+    -- Системный трей сети (опционально, если установлен)
+    -- hl.exec_cmd("nm-applet")
+end)
 
 
 -------------------------------
