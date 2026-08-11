@@ -123,6 +123,7 @@
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
+    tkai
     alacritty
     vim
     nodejs
