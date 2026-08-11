@@ -14,7 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # ДОБАВЛЯЕМ ОФИЦИАЛЬНЫЙ ФЛЕЙК ZEN BROWSER
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,14 +28,17 @@
           ./configuration.nix
 
           disko.nixosModules.disko
+          # ИСПРАВЛЕНО: Новый путь к файлу разметки disko
+          ./disk/disko-config.nix
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.slfhrmfn = import ./home.nix inputs;
+            
+            # ИСПРАВЛЕНО: Новый путь к конфигурации пользователя home.nix
+            home-manager.users.slfhrmfn = import ./user/home.nix inputs;
 
-            # Передаем инпуты внутрь, чтобы home.nix видел пакеты Zen
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
@@ -44,3 +46,4 @@
     };
   };
 }
+
