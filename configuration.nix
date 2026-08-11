@@ -111,6 +111,17 @@ security.sudo.extraRules = [{
       qtile-extras
     ];
   };
+  # ИСПРАВЛЕНО: Этот блок жестко задает DPI для всех X11 сессий (включая Qtile)
+  services.displayManager.sessionCommands = ''
+    ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
+    Xft.dpi: 120
+EOF
+  '';
+
+  services.xserver.xkb = {
+    layout = "us,ru";
+    options = "grp:caps_toggle";
+  };
 
 
   services.printing.enable = true;
