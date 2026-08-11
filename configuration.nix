@@ -16,10 +16,8 @@
     ./modules/system/bluetooth.nix
     ./modules/system/fonts.nix
 
-    # Графическое окружение
-    ./modules/desktop.nix
-    
-    # ИСПРАВЛЕНО: Явно подключаем созданный модуль софта Waybar
+    # Графическое окружение (ТОЛЬКО RIVER, БЕЗ СТАРОГО DESKTOP.NIX)
+    ./modules/desktop/river.nix
     ./modules/desktop/hyprland-apps.nix
   ];
 
