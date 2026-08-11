@@ -8,6 +8,8 @@
     ./modules/core/boot.nix
     ./modules/core/nix-settings.nix
 
+# ДОБАВЛЕНО: Ультимативный патч для Tecno Megabook T1
+    ./modules/system/hardware-tecno.nix
     # Сеть, пользователи и локализация
     ./modules/network/default.nix
     ./modules/system/locale.nix
