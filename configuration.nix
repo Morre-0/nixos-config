@@ -7,8 +7,9 @@
 
   environment.shellAliases = {
     nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw && sudo git push origin master || true; cd /home/slfhrmfn";
-        nix-clean = "nix-env --delete-generations old && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d && sudo nix-store --optimize";
     zapret-start = "cd /home/slfhrmfn/zapret-discord-youtube-linux && sudo ./service.sh run --config conf.env";
+        nix-clean = "nix-env --delete-generations old && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d && sudo nix-store --optimize && sudo nixos-rebuild boot --flake /etc/nixos/#nix-btw";
+
   };
 #dsad
 
