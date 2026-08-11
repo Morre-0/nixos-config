@@ -2,8 +2,7 @@ inputs: { pkgs, ... }: {
   home.stateVersion = "26.05"; 
 
   home.packages = with pkgs; [
-    alacritty
-    btop
+  btop
     htop
     cmus
     vlc
@@ -11,13 +10,13 @@ inputs: { pkgs, ... }: {
     gcc
     luarocks
     pywalfox-native
-
     # Изолированное окружение пользователя с Python и Pip
     (python3.withPackages (ps: with ps; [
       pip
       virtualenv
       setuptools
     ]))
+
   ];
 
   # Настройка Firefox с поддержкой Pywalfox
@@ -52,5 +51,6 @@ inputs: { pkgs, ... }: {
   };
 
   programs.home-manager.enable = true;
+
 }
 
