@@ -73,10 +73,14 @@ inputs: { pkgs, ... }: {
 
   # Разрешаем Home Manager управлять самим собой
   programs.home-manager.enable = true;
-    # Автоматическое развёртывание и подхват настроек Noctalia
-  home.file.".config/noctalia" = {
-    source = ./dotfiles/noctalia;
-    recursive = true; # Копировать всю структуру папок и файлов рекурсивно
+home.file = {
+    ".config/river" = {
+      source = ./dotfiles/river;
+      recursive = true;
+    };
+    ".config/waybar" = { source = ./dotfiles/waybar; recursive = true; };
+    ".config/rofi" = { source = ./dotfiles/rofi; recursive = true; };
+    ".config/dunst" = { source = ./dotfiles/dunst; recursive = true; };
   };
 
 }

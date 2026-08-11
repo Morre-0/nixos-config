@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# 1. АВТОЗАПУСК ЭКОСИСТЕМЫ (Панель, обои, уведомления)
+waybar &
+swww init &
+dunst &
+
+# 2. ОСНОВНЫЕ ПЕРЕМЕННЫЕ И МОДИФИКАТОР (Super)
+MOD="Logo"
+
+# 3. ГОРЯЧИЕ КЛАВИШИ ЗАПУСКА ПРОГРАММ
+riverctl map normal $MOD Return spawn ghostty       # Super + Enter = Терминал
+riverctl map normal $MOD B spawn zen              # Super + B = Zen Browser
+riverctl map normal $MOD E spawn thunar           # Super + E = Проводник
+riverctl map normal $MOD R spawn "rofi -show drun" # Super + R = Меню запуска
+
+# 4. УПРАВЛЕНИЕ ОКНАМИ
+riverctl map normal $MOD Q close                  # Super + Q = Закрыть окно
+riverctl map normal $MOD Space toggle-float       # Super + Пробел = Окно в фокус/флоат
+riverctl map normal $MOD F toggle-fullscreen     # Super + F = Полный экран
+
+# Перемещение фокуса между окнами (Super + стрелочки или J/K)
+riverctl map normal $MOD J focus-view next
+riverctl map normal $MOD K focus-view previous
+
+# Изменение размеров главного окна
+riverctl map normal $MOD H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal $MOD L send-layout-cmd rivertile "main-ratio +0.05"
+
+# 5. ТЕГИ (РАБОЧИЕ СТОЛЫ 1-9)
+for i in $(seq 1 9); do
+    tags=$((1 << (i - 1)))
+    # Переключение на рабочий стол (Super + Цифра)
+    riverctl map normal $MOD $i set-focused-tags $tags
+    # Перенос окна на рабочий стол (Super + Shift + Цифра)
+    riverctl map normal $MOD+Shift $i set-view-tags $tags
+done
+
+# 6. ВЫХОД ИЗ СИСТЕМЫ
+riverctl map normal $MOD+Shift E exit             # Super + Shift + E = Выход из River
+
+# 7. СТИЛЬ (Границы окон)
+riverctl border-width 2
+riverctl border-color-focused "0xff5e81ac"        # Красивый Nord синий фокус
+riverctl border-color-unfocused "0xff4c566a"      # Серый для неактивных окон
+
+# ПРИНУДИТЕЛЬНЫЙ ЗАПУСК СТАНДАРТНОГО КОМПОНОВЩИКА ОКОН (Rivertile)
+riverctl default-layout rivertile
+exec rivertile -view-padding 5 -outer-padding 5 &
+
