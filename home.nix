@@ -20,6 +20,13 @@
       setuptools
     ]))
   ];
+    programs.firefox = {
+    enable = true;
+    nativeMessagingHosts = with pkgs; [
+      pywalfox
+    ];
+  };
+
 
 home.sessionPath = [
     "$HOME/.local/bin"
