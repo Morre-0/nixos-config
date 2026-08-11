@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     # Интерфейс
+    alacritty
     waybar              # Твой статус-бар
     rofi        # Меню запуска приложений
     dunst               # Сервер уведомлений

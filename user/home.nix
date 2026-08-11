@@ -73,11 +73,11 @@ inputs: { pkgs, ... }: {
 
   # Разрешаем Home Manager управлять самим собой
   programs.home-manager.enable = true;
+
   home.file = {
-    # Указываем Home Manager принудительно делать скрипт init исполняемым
-    ".config/river/init" = {
-      source = ./dotfiles/river/init;
-      executable = true;
+    ".config/river" = {
+      source = ./dotfiles/river;
+      recursive = true;
     };
     ".config/waybar" = { source = ./dotfiles/waybar; recursive = true; };
     ".config/rofi" = { source = ./dotfiles/rofi; recursive = true; };
