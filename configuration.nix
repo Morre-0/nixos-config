@@ -17,11 +17,6 @@
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
     experimental-features = [ "nix-command" "flakes" ];
   };
-## Включаем официальный модуль Hyprland
-programs.hyprland = {
-  enable = true;
-  xwayland.enable = true; # Для совместимости со старыми X11 приложениями (типа игр)
-};
 
   # Разрешаем запускать git push в папке /etc/nixos без пароля root
   security.sudo.extraRules = [{
