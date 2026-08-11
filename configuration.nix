@@ -138,6 +138,7 @@ security.sudo.extraRules = [{
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
+    swaybg
     rofi
     feh
     picom
