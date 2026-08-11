@@ -7,19 +7,10 @@
     enable = true;
     settings = {
       default_session = {
-              command = "${pkgs.greetd}/bin/agreety --cmd Hyprland";
+        command = "${pkgs.greetd}/bin/agreety --cmd Hyprland";
         user = "slfhrmfn";
       };
     };
-  };
-
-  # Настройка звука (Pipewire)
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
   };
 }
 

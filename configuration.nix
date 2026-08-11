@@ -1,49 +1,26 @@
-{ pkgs, ... }: {
+{ ... }: {
 
   imports = [
+    # Аппаратная часть
     ./hardware-configuration.nix
-    # ПОДКЛЮЧАЕМ НАШ НОВЫЙ МОДУЛЬ РАБОЧЕГО СТОЛА
+
+    # Системное ядро и загрузка
+    ./modules/core/boot.nix
+    ./modules/core/nix-settings.nix
+
+    # Сеть, пользователи и локализация
+    ./modules/network/default.nix
+    ./modules/system/locale.nix
+    ./modules/system/users.nix
+    
+    # ИСПРАВЛЕНО: Добавляем специализированные модули
+    ./modules/system/sound.nix
+    ./modules/system/bluetooth.nix
+
+    # Графическое окружение (теперь только чистый Hyprland)
     ./modules/desktop.nix
   ];
 
-  # Загрузчик systemd-boot
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.supportedFilesystems = [ "btrfs" ];
-
-  # Сеть и локализация
-  networking.hostName = "nix-btw";
-  networking.networkmanager.enable = true;
-  time.timeZone = "Europe/Moscow";
-  i18n.defaultLocale = "ru_RU.UTF-8";
-
-  # Пользователь системы
-  users.users.slfhrmfn = {
-    isNormalUser = true;
-    description = "slfhrmfn";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
-  };
-
-  # Системные правила для Git
-  programs.git = {
-    enable = true;
-    config.safe.directory = "/etc/nixos";
-  };
-
-  # Базовый софт для терминала
-  environment.systemPackages = with pkgs; [
-    neovim
-    git
-    curl
-    wget
-  ];
-
-  # Алиасы команд
-  environment.shellAliases = {
-    nix-clean = "nix-env --delete-generations old && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d && sudo nix-store --optimize && sudo nixos-rebuild boot --flake /etc/nixos/#nix-btw";
-  };
-nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "26.05";
 }
 
