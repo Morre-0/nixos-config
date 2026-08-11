@@ -1,5 +1,5 @@
 {
-  description = "Чистая конфигурация NixOS на актуальной ветке unstable с поддержкой Disko";
+  description = "Чистая конфигурация NixOS на актуальной ветке unstable с подготовленным Disko";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -22,10 +22,11 @@
         modules = [
           ./configuration.nix
           
-          # Подключаем модуль Disko и файл разметки
+          # Загружаем сам модуль Disko, чтобы он прописался в системе...
           disko.nixosModules.disko
-          ./disko-config.nix
-
+          # ...НО саму разметку ./disko-config.nix здесь НЕ импортируем,
+          # чтобы не было конфликта с твоим текущим диском!
+          
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
