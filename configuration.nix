@@ -33,7 +33,7 @@
 
   # Базовый софт для терминала
   environment.systemPackages = with pkgs; [
-    nvim
+    neovim
     git
     curl
     wget
