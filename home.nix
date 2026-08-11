@@ -5,6 +5,7 @@
   # Пользовательские пакеты
   home.packages = with pkgs; [
     ghostty
+        inputs.zen-browser.packages."${pkgs.system}".specific
     btop
     htop
     cmus
