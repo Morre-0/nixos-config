@@ -1,4 +1,4 @@
- {config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ 
@@ -6,32 +6,28 @@
   ];
 
   environment.shellAliases = {
-      nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw && sudo git push origin master || true; cd /home/slfhrmfn";
+    nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw && sudo git push origin master || true; cd /home/slfhrmfn";
     zapret-start = "cd /home/slfhrmfn/zapret-discord-youtube-linux && sudo ./service.sh run --config conf.env";
   };
 
   nix.settings = {
     max-jobs = "auto";
     cores = 0; 
-    # ИСПРАВЛЕНО: Теперь здесь правильный бинарный кэш
     substituters = [ "https://nixos.org" ];
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
     experimental-features = [ "nix-command" "flakes" ];
   };
-#hypr
-#programs.hyprland.enable = true;
 
-#1341324
-# Разрешаем запускать git push в папке /etc/nixos без пароля root
-security.sudo.extraRules = [{
-  users = [ "slfhrmfn" ];
-  commands = [{
-    command = "/run/current-system/sw/bin/git -C /etc/nixos push origin master";
-    options = [ "NOPASSWD" ];
+  # Разрешаем запускать git push в папке /etc/nixos без пароля root
+  security.sudo.extraRules = [{
+    users = [ "slfhrmfn" ];
+    commands = [{
+      command = "/run/current-system/sw/bin/git -C /etc/nixos push origin master";
+      options = [ "NOPASSWD" ];
+    }];
   }];
-}];
 
-# Служба автозапуска zapret
+  # Служба автозапуска zapret
   systemd.services.zapret-auto = {
     description = "Zapret Bypass Service";
     after = [ "network.target" ];
@@ -58,7 +54,6 @@ security.sudo.extraRules = [{
     };
   };
 
-  # Включаем nftables, так как он обязателен для работы скрипта zapret
   networking.nftables.enable = true;
 
   # Bootloader
@@ -72,12 +67,10 @@ security.sudo.extraRules = [{
     nerd-fonts.jetbrains-mono
   ];
 
-  # Kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nix-btw";
   networking.networkmanager.enable = true;
-
 
   # Locale & TimeZone
   time.timeZone = "Europe/Moscow";
@@ -94,35 +87,16 @@ security.sudo.extraRules = [{
     LC_TIME = "ru_RU.UTF-8";
   };
 
-  # Graphics & Desktop (GNOME)
+  # Graphics & Desktop (GNOME + NIRI)
   services.xserver.enable = true;
   services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
-  services.xserver.xkb = {
-    layout = "us,ru";
-    options = "grp:caps_toggle";
-  };
 
+  # Включаем официальный модуль Niri
+  programs.niri.enable = true;
 
-    # Добавляем Qtile рядышком
-  services.xserver.windowManager.qtile = {
-    enable = true;
-    extraPackages = python3Packages: with python3Packages; [
-      qtile-extras
-    ];
-  };
-  # ИСПРАВЛЕНО: Этот блок жестко задает DPI для всех X11 сессий (включая Qtile)
-  services.displayManager.sessionCommands = ''
-    ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
-    Xft.dpi: 120
-EOF
-  '';
-
-  services.xserver.xkb = {
-    layout = "us,ru";
-    options = "grp:caps_toggle";
-  };
-
+  # Отключаем дефолтные обрезанные пути systemd, чтобы niri наследовал переменные окружения
+  systemd.user.services.niri.enableDefaultPath = false;
 
   services.printing.enable = true;
 
@@ -149,10 +123,6 @@ EOF
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
-    swaybg
-    rofi
-    feh
-    picom
     vim
     nodejs
     python3
@@ -160,6 +130,12 @@ EOF
     curl
     wget
     git
+    
+    # Окружение Niri
+    ghostty       # Наш основной терминал
+    fuzzel        # Родной, быстрый Wayland-лаунчер приложений для Niri
+    swaybg        # Обои
+    waybar        # Статус-бар
   ];
 
   system.stateVersion = "26.05";
