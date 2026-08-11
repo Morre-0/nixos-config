@@ -103,6 +103,16 @@ security.sudo.extraRules = [{
     options = "grp:caps_toggle";
   };
 
+
+    # Добавляем Qtile рядышком
+  services.xserver.windowManager.qtile = {
+    enable = true;
+    extraPackages = python3Packages: with python3Packages; [
+      qtile-extras
+    ];
+  };
+
+
   services.printing.enable = true;
 
   # Sound
@@ -128,6 +138,9 @@ security.sudo.extraRules = [{
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
+    rofi-wayland
+    feh
+    picom
     vim
     nodejs
     python3
