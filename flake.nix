@@ -1,21 +1,30 @@
 {
-  description = "Чистая конфигурация NixOS на актуальной ветке Flakes 26.05";
+  description = "Чистая конфигурация NixOS на актуальной ветке unstable с поддержкой Disko";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    disko = {
+      url = "github:numtide/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, disko, ... }@inputs: {
     nixosConfigurations = {
       nix-btw = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
+          
+          # Подключаем модуль Disko и файл разметки
+          disko.nixosModules.disko
+          ./disko-config.nix
 
           home-manager.nixosModules.home-manager
           {
@@ -28,4 +37,3 @@
     };
   };
 }
-
