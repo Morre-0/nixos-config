@@ -11,11 +11,9 @@
   };
 #dsad
 
-  # ИСПРАВЛЕНО: Явно указываем NixOS собирать сессию из переопределенного пакета v0.52.0
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = pkgs.hyprland; # Берет подмененный пакет из оверлея флейка
   };
 
   nix.settings = {
