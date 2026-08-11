@@ -23,6 +23,7 @@
 
 home.sessionPath = [
     "$HOME/.local/bin"
+    ];
   # Декларативная настройка Vim
   programs.vim = {
     enable = true;
