@@ -27,10 +27,7 @@
         modules = [
           ./configuration.nix
 
-          # Загружаем сам модуль Disko, чтобы система знала эти команды...
           disko.nixosModules.disko
-          # ...НО саму разметку ./disk/disko-config.nix здесь НЕ импортируем,
-          # чтобы не было конфликта с твоим текущим диском!
 
           home-manager.nixosModules.home-manager
           {
@@ -46,3 +43,4 @@
     };
   };
 }
+
