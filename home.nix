@@ -1,11 +1,10 @@
-{ pkgs, ... }: {
+inputs: { pkgs, ... }: {
   # Версия Home Manager
   home.stateVersion = "26.05"; 
 
   # Пользовательские пакеты
   home.packages = with pkgs; [
     ghostty
-        inputs.zen-browser.packages."${pkgs.system}".specific
     btop
     htop
     cmus
@@ -14,8 +13,11 @@
     gcc
     luarocks
     
-    # ИСПРАВЛЕНО: Официальное имя пакета в NixOS
+    # Официальное имя пакета Pywalfox в NixOS
     pywalfox-native
+
+    # ДОБАВЛЯЕМ ZEN BROWSER ИЗ ВНЕШНЕГО ФЛЕЙКА
+    inputs.zen-browser.packages."${pkgs.system}".specific
 
     # Изолированное окружение пользователя с Python и Pip
     (python3.withPackages (ps: with ps; [
@@ -29,7 +31,6 @@
   programs.firefox = {
     enable = true;
     nativeMessagingHosts = with pkgs; [
-      # ИСПРАВЛЕНО: Указываем верное имя моста обмена сообщениями
       pywalfox-native
     ];
   };

@@ -34,7 +34,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.slfhrmfn = import ./home.nix;
+	    home-manager.users.slfhrmfn = import ./home.nix inputs;
             
             # Передаем инпуты внутрь, чтобы home.nix видел пакеты Zen
             home-manager.extraSpecialArgs = { inherit inputs; };
