@@ -1,17 +1,17 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
   ];
 
   environment.shellAliases = {
     nix-upgrade = "cd /etc/nixos && sudo nix flake update; sudo git add .; sudo git commit -m 'Update' || true; sudo nixos-rebuild switch --flake .#nix-btw && sudo git push origin master || true; cd /home/slfhrmfn";
     zapret-start = "cd /home/slfhrmfn/zapret-discord-youtube-linux && sudo ./service.sh run --config conf.env";
-        nix-clean = "nix-env --delete-generations old && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d && sudo nix-store --optimize && sudo nixos-rebuild boot --flake /etc/nixos/#nix-btw";
+    nix-clean = "nix-env --delete-generations old && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d && sudo nix-store --optimize && sudo nixos-rebuild boot --flake /etc/nixos/#nix-btw";
 
   };
-#dsad
+  #dsad
   programs.git = {
     enable = true;
     config = {
@@ -29,7 +29,7 @@
 
   nix.settings = {
     max-jobs = "auto";
-    cores = 0; 
+    cores = 0;
     substituters = [ "https://nixos.org" ];
     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
     experimental-features = [ "nix-command" "flakes" ];
@@ -50,15 +50,15 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    path = with pkgs; [ 
-      nftables 
-      iptables 
-      gawk 
-      curl 
-      wget 
-      coreutils 
-      procps 
-      bash 
+    path = with pkgs; [
+      nftables
+      iptables
+      gawk
+      curl
+      wget
+      coreutils
+      procps
+      bash
     ];
 
     serviceConfig = {
@@ -149,14 +149,14 @@
     curl
     wget
     git
-    
+
     # Окружение Niri
-    ghostty       # Наш основной терминал
-    fuzzel        # Родной, быстрый Wayland-лаунчер приложений для Niri
-    swaybg        # Обои
+    ghostty # Наш основной терминал
+    fuzzel # Родной, быстрый Wayland-лаунчер приложений для Niri
+    swaybg # Обои
     noctalia-shell
     noctalia-qs
-    waybar        # Статус-бар
+    waybar # Статус-бар
   ];
 
   system.stateVersion = "26.05";

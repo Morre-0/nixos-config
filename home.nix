@@ -1,6 +1,6 @@
 inputs: { pkgs, ... }: {
   # Версия Home Manager
-  home.stateVersion = "26.05"; 
+  home.stateVersion = "26.05";
 
   # Пользовательские пакеты
   home.packages = with pkgs; [
@@ -12,7 +12,7 @@ inputs: { pkgs, ... }: {
     steam-run
     gcc
     luarocks
-    
+
     # Официальное имя пакета Pywalfox в NixOS
     pywalfox-native
 
@@ -43,13 +43,13 @@ inputs: { pkgs, ... }: {
   # Декларативная настройка Vim
   programs.vim = {
     enable = true;
-    
+
     settings = {
-      number = true;         # Показывать номера строк
+      number = true; # Показывать номера строк
       relativenumber = true; # Относительные номера строк
-      tabstop = 4;           # Размер табуляции (4 пробела)
-      shiftwidth = 4;        # Размер отступа при автосдвиге
-      expandtab = true;      # Конвертировать табы в пробелы
+      tabstop = 4; # Размер табуляции (4 пробела)
+      shiftwidth = 4; # Размер отступа при автосдвиге
+      expandtab = true; # Конвертировать табы в пробелы
     };
 
     extraConfig = ''

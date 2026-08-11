@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,15 +27,15 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          
+
           disko.nixosModules.disko
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-	    home-manager.users.slfhrmfn = import ./home.nix inputs;
-            
+            home-manager.users.slfhrmfn = import ./home.nix inputs;
+
             # Передаем инпуты внутрь, чтобы home.nix видел пакеты Zen
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
