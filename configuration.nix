@@ -10,7 +10,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.supportedFilesystems = [ "btrfs" ];
-  boot.initrd.luks.devices."crypted".preLVM = true;
 
   # Сеть и локализация
   networking.hostName = "nix-btw";
