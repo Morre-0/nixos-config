@@ -1,5 +1,5 @@
 {
-  description = "Чистая конфигурация NixOS на актуальной ветке unstable с поддержкой Disko и Zen Browser";
+  description = "Чистая модульная конфигурация NixOS Unstable — Fedora-style GNOME Workstation";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -26,16 +26,13 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-
           disko.nixosModules.disko
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            
             home-manager.users.slfhrmfn = import ./user/home.nix inputs;
-
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
@@ -43,4 +40,3 @@
     };
   };
 }
-

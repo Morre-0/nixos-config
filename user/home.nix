@@ -1,8 +1,9 @@
 inputs: { pkgs, ... }: {
   home.stateVersion = "26.05"; 
 
+  # Пакеты пользователя (чистый GNOME Workstation)
   home.packages = with pkgs; [
-  btop
+    btop
     htop
     cmus
     vlc
@@ -10,13 +11,16 @@ inputs: { pkgs, ... }: {
     gcc
     luarocks
     pywalfox-native
-    # Изолированное окружение пользователя с Python и Pip
+    
+    # Твой браузер Zen Browser из внешнего флейка
+    inputs.zen-browser.packages."${pkgs.system}".default
+
+    # Изолированное окружение Python
     (python3.withPackages (ps: with ps; [
       pip
       virtualenv
       setuptools
     ]))
-
   ];
 
   # Настройка Firefox с поддержкой Pywalfox
@@ -27,11 +31,7 @@ inputs: { pkgs, ... }: {
     ];
   };
 
-  home.sessionPath = [
-    "$HOME/.local/bin"
-  ];
-
-  # Декларативная настройка Vim
+  # Декларативная настройка встроенного Vim
   programs.vim = {
     enable = true;
     settings = {
@@ -45,12 +45,8 @@ inputs: { pkgs, ... }: {
       syntax on
       set mouse=a
       set clipboard=unnamedplus
-      set ignorecase
-      set smartcase
     '';
   };
 
   programs.home-manager.enable = true;
-
 }
-

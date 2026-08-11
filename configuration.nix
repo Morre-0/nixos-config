@@ -16,11 +16,10 @@
     ./modules/system/bluetooth.nix
     ./modules/system/fonts.nix
 
-    # Графическое окружение (ИСПРАВЛЕНО: Чистый официальный GNOME)
+    # Графическое окружение (ИСПРАВЛЕНО: Чистый GNOME как в Fedora)
     ./modules/desktop/gnome.nix
   ];
 
-  # Точка отсчёта обратной совместимости системы
   system.stateVersion = "26.05";
 }
 
