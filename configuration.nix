@@ -131,6 +131,7 @@
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
+    pipx
     alacritty
     vim
     nodejs
