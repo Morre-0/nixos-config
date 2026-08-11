@@ -6,14 +6,15 @@
   services.greetd = {
     enable = true;
     settings = {
-      # 1. Первая сессия при загрузке — заходим сразу без пароля
+      # Первая сессия при старте ПК — мгновенный чистый вход
       initial_session = {
-        command = "Hyprland";
+        # ИСПРАВЛЕНО: Используем официальный стартер вместо прямого вызова
+        command = "start-hyprland";
         user = "slfhrmfn";
       };
-      # 2. Если ты случайно выйдешь из Hyprland, тебя вернет в текстовый вход
+      # Запасной текстовый вход на случай выхода из сессии
       default_session = {
-        command = "${pkgs.greetd}/bin/agreety --cmd Hyprland";
+        command = "${pkgs.greetd}/bin/agreety --cmd start-hyprland";
         user = "slfhrmfn";
       };
     };
