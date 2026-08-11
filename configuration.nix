@@ -12,15 +12,18 @@
     ./modules/network/default.nix
     ./modules/system/locale.nix
     ./modules/system/users.nix
-    
-    # ИСПРАВЛЕНО: Добавляем специализированные модули
     ./modules/system/sound.nix
     ./modules/system/bluetooth.nix
+    ./modules/system/fonts.nix
 
-    # Графическое окружение (теперь только чистый Hyprland)
+    # Графическое окружение
     ./modules/desktop.nix
+    
+    # ИСПРАВЛЕНО: Явно подключаем созданный модуль софта Waybar
+    ./modules/desktop/hyprland-apps.nix
   ];
 
+  # Точка отсчёта обратной совместимости системы
   system.stateVersion = "26.05";
 }
 
