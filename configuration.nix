@@ -16,9 +16,8 @@
     ./modules/system/bluetooth.nix
     ./modules/system/fonts.nix
 
-    # Графическое окружение (ТОЛЬКО RIVER, БЕЗ СТАРОГО DESKTOP.NIX)
-    ./modules/desktop/river.nix
-    ./modules/desktop/hyprland-apps.nix
+    # Графическое окружение (ИСПРАВЛЕНО: Чистый официальный GNOME)
+    ./modules/desktop/gnome.nix
   ];
 
   # Точка отсчёта обратной совместимости системы

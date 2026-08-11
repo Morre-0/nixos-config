@@ -1,10 +1,8 @@
 inputs: { pkgs, ... }: {
-  # Версия Home Manager
-  home.stateVersion = "26.05";
+  home.stateVersion = "26.05"; 
 
-  # Пользовательские пакеты
   home.packages = with pkgs; [
-    ghostty
+    alacritty
     btop
     htop
     cmus
@@ -12,12 +10,7 @@ inputs: { pkgs, ... }: {
     steam-run
     gcc
     luarocks
-
-    # Официальное имя пакета Pywalfox в NixOS
     pywalfox-native
-
-    # ДОБАВЛЯЕМ ZEN BROWSER ИЗ ВНЕШНЕГО ФЛЕЙКА
-    inputs.zen-browser.packages."${pkgs.system}".default
 
     # Изолированное окружение пользователя с Python и Pip
     (python3.withPackages (ps: with ps; [
@@ -35,7 +28,6 @@ inputs: { pkgs, ... }: {
     ];
   };
 
-  # Добавление локальной бинарной папки в PATH
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
@@ -43,46 +35,22 @@ inputs: { pkgs, ... }: {
   # Декларативная настройка Vim
   programs.vim = {
     enable = true;
-
     settings = {
-      number = true; # Показывать номера строк
-      relativenumber = true; # Относительные номера строк
-      tabstop = 4; # Размер табуляции (4 пробела)
-      shiftwidth = 4; # Размер отступа при автосдвиге
-      expandtab = true; # Конвертировать табы в пробелы
+      number = true;
+      relativenumber = true;
+      tabstop = 4;
+      shiftwidth = 4;
+      expandtab = true;
     };
-
     extraConfig = ''
-      syntax on              " Включить подсветку синтаксиса
-      set mouse=a            " Разрешить работу мышкой (выделение, скролл)
-      set clipboard=unnamedplus " Системный буфер обмена (Ctrl+C / Ctrl+V)
-      set ignorecase         " Игнорировать регистр при поиске
-      set smartcase          " Но учитывать регистр, если есть заглавная буква
+      syntax on
+      set mouse=a
+      set clipboard=unnamedplus
+      set ignorecase
+      set smartcase
     '';
   };
 
-  # Конфигурация Ghostty через Home Manager
-  programs.ghostty = {
-    enable = true;
-    settings = {
-      font-family = "JetBrainsMono Nerd Font";
-      font-size = 11;
-      background-opacity = 0.9;
-    };
-  };
-
-  # Разрешаем Home Manager управлять самим собой
   programs.home-manager.enable = true;
-
-  home.file = {
-    ".config/river" = {
-      source = ./dotfiles/river;
-      recursive = true;
-    };
-    ".config/waybar" = { source = ./dotfiles/waybar; recursive = true; };
-    ".config/rofi" = { source = ./dotfiles/rofi; recursive = true; };
-    ".config/dunst" = { source = ./dotfiles/dunst; recursive = true; };
-  };
-
 }
 
