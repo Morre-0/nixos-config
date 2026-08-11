@@ -13,8 +13,8 @@
     gcc
     luarocks
     
-    # ИСПРАВЛЕНО: Добавляем сам пакет pywalfox в систему
-    pywalfox
+    # ИСПРАВЛЕНО: Официальное имя пакета в NixOS
+    pywalfox-native
 
     # Изолированное окружение пользователя с Python и Pip
     (python3.withPackages (ps: with ps; [
@@ -28,7 +28,8 @@
   programs.firefox = {
     enable = true;
     nativeMessagingHosts = with pkgs; [
-      pywalfox
+      # ИСПРАВЛЕНО: Указываем верное имя моста обмена сообщениями
+      pywalfox-native
     ];
   };
 
