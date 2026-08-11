@@ -10,7 +10,7 @@
     };
 
     disko = {
-      url = "github:numtide/disko";
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
