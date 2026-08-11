@@ -123,6 +123,7 @@
   # System Packages
   environment.systemPackages = with pkgs; [
     neovim
+    alacritty
     vim
     nodejs
     python3
@@ -135,6 +136,8 @@
     ghostty       # Наш основной терминал
     fuzzel        # Родной, быстрый Wayland-лаунчер приложений для Niri
     swaybg        # Обои
+    noctalia-shell
+    noctalia-qs
     waybar        # Статус-бар
   ];
 
