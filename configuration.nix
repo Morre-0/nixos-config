@@ -12,6 +12,15 @@
 
   };
 #dsad
+  programs.git = {
+    enable = true;
+    config = {
+      safe = {
+        directory = "/etc/nixos";
+      };
+    };
+  };
+
 
   programs.hyprland = {
     enable = true;
