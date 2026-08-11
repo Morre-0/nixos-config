@@ -17,7 +17,7 @@ inputs: { pkgs, ... }: {
     pywalfox-native
 
     # ДОБАВЛЯЕМ ZEN BROWSER ИЗ ВНЕШНЕГО ФЛЕЙКА
-    inputs.zen-browser.packages."${pkgs.system}".defualt
+    inputs.zen-browser.packages."${pkgs.system}".default
 
     # Изолированное окружение пользователя с Python и Pip
     (python3.withPackages (ps: with ps; [
