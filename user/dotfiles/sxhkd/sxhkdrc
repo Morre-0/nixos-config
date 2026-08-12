@@ -1,3 +1,8 @@
+# -----------------------------------------------------------------
+# 🔥 УЛЬТИМАТИВНЫЙ SXHKDRC ДЛЯ GRUVBOX BSPWM RICE
+# -----------------------------------------------------------------
+
+# 1. ЗАПУСК ПРОГРАММ
 # Запуск терминала Alacritty (Super + Enter)
 super + Return
     alacritty
@@ -10,6 +15,11 @@ super + b
 super + r
     rofi -show drun
 
+# Селектор обоев через Rofi (Super + W)
+super + w
+    ~/.config/scripts/rofi-wallpaper.sh
+
+# 2. УПРАВЛЕНИЕ ОКНАМИ
 # Закрыть текущее окно (Super + Q)
 super + q
     bspc node -c
@@ -17,6 +27,10 @@ super + q
 # Переключить окно в плавающий режим (Super + Space)
 super + space
     bspc node -t \~floating
+
+# Развернуть окно на весь экран (Super + F)
+super + f
+    bspc node -t toggle_fullscreen
 
 # Выход из BSPWM назад в экран входа SDDM (Super + Shift + E)
 super + shift + e
@@ -26,6 +40,12 @@ super + shift + e
 super + {Left,Down,Up,Right}
     bspc node -f {west,south,north,east}
 
-# Меню выбора обоев через Rofi (Super + W)
-super + w
-    ~/.config/scripts/rofi-wallpaper.sh
+# 3. ИСПРАВЛЕНО: УПРАВЛЕНИЕ РАБОЧИМИ СТОЛАМИ (TAGS 1-5)
+# Переключение на рабочий стол (Super + Цифра от 1 до 5)
+super + {1,2,3,4,5}
+    bspc desktop -f {1,2,3,4,5}
+
+# Перенос активного окна на другой рабочий стол (Super + Shift + Цифра от 1 до 5)
+super + shift + {1,2,3,4,5}
+    bspc node -d {1,2,3,4,5}
+
