@@ -7,11 +7,13 @@ inputs: { pkgs, ... }: {
     inputs.picom-pijulius.packages."${pkgs.system}".default
     (python3.withPackages (ps: with ps; [ pip virtualenv setuptools ]))
   ];
-
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = with pkgs; [ pywalfox-native ];
+    nativeMessagingHosts = with pkgs; [
+      pywalfox-native # Нативный мост для автопокраски шапки Firefox
+    ];
   };
+
 
   # УЛЬТИМАТИВНАЯ ДЕКЛАРАТИВНАЯ НАСТРОЙКА NEOVIM (ИСПРАВЛЕНО ПОД NEW TREESITTER)
   programs.neovim = {

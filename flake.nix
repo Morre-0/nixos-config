@@ -1,5 +1,5 @@
 {
-  description = "NixOS Unstable — Полный BSPWM Rice в стиле Gruvbox Material";
+  description = "Чистая модульная конфигурация NixOS Unstable — Полный сетап";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -29,8 +29,6 @@
     nixosConfigurations = {
       nix-btw = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        
-        # ИСПРАВЛЕНО: Пробрасываем инпуты на уровне ядра флейка во все подмодули!
         specialArgs = { inherit inputs; };
 
         modules = [
@@ -41,6 +39,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            
+            # ИСПРАВЛЕНО: Автоматически бэкапим конфликтующие файлы в домашней папке
+            home-manager.backupFileExtension = "backup";
+            
             home-manager.users.slfhrmfn = import ./user/home.nix inputs;
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
