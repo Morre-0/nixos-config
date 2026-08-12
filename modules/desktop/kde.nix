@@ -1,27 +1,33 @@
 { pkgs, ... }: {
   # Включаем базовые графические службы Xserver
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    
+    # ДОБАВЛЕНО: Включаем bspwm параллельно с KDE
+    windowManager.bspwm.enable = true;
+  };
 
   # Включаем современный дисплейный менеджер SDDM (Экран входа)
   services.displayManager.sddm = {
     enable = true;
-    wayland.enable = true; # Запускаем сам SDDM на Wayland для плавности
-  };
-
-  # Настраиваем автоматический вход без пароля прямо в сессию KDE Plasma
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "slfhrmfn";
+    wayland.enable = true; 
   };
 
   # Включаем графическое окружение KDE Plasma 6
   services.desktopManager.plasma6.enable = true;
 
-  # Добавляем полезный софт для кастомизации и нативный терминал
+  # Полный набор утилит для KDE и твоего хакерского BSPWM Rice
   environment.systemPackages = with pkgs; [
-    kdePackages.konsole       # Родной, мощный терминал KDE
-    kdePackages.kate          # Отличный текстовый редактор
-    kdePackages.ark           # Архиватор
+    # Утилиты KDE
+    kdePackages.konsole
+    kdePackages.kate
+    
+    # Утилиты BSPWM
+    sxhkd          # Демон горячих клавиш (БЕЗ НЕГО ХОТКЕИ НЕ РАБОТАЮТ)
+    rofi           # Меню запуска приложений
+    alacritty      # Терминал для хоткея
+    feh            # Установка обоев рабочего стола
+    xclip          # Буфер обмена
   ];
 }
 
