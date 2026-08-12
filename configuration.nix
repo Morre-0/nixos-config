@@ -8,8 +8,6 @@
     ./modules/core/boot.nix
     ./modules/core/nix-settings.nix
 
-# ДОБАВЛЕНО: Ультимативный патч для Tecno Megabook T1
-    ./modules/system/hardware-tecno.nix
     # Сеть, пользователи и локализация
     ./modules/network/default.nix
     ./modules/system/locale.nix
@@ -17,9 +15,10 @@
     ./modules/system/sound.nix
     ./modules/system/bluetooth.nix
     ./modules/system/fonts.nix
+    ./modules/system/hardware-tecno.nix
 
-    # Графическое окружение (ИСПРАВЛЕНО: Чистый GNOME как в Fedora)
-    ./modules/desktop/gnome.nix
+    # Графическое окружение (ИСПРАВЛЕНО: Ультра-плавная KDE Plasma 6)
+    ./modules/desktop/kde.nix
   ];
 
   system.stateVersion = "26.05";
