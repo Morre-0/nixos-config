@@ -1,20 +1,22 @@
 { pkgs, ... }: {
-  # Настройка шрифтов под требования NixOS Unstable
+  # Системная установка шрифтов под требования NixOS Unstable
   fonts.packages = with pkgs; [
-    # Твой основной шрифт для терминала и кода с иконками Nerd Font
+    # Твой основной шрифт для кода и терминала с иконками
     nerd-fonts.jetbrains-mono
     
-    # Пакет с Comic Sans и другими шрифтами MS (Arial, Times New Roman)
-    corefonts
+    # ПРИНУДИТЕЛЬНО: Ставим чистый пак символов и иконок для Polybar
+    nerd-fonts.symbols-only
 
-    # Базовые системные шрифты для отображения интерфейсов
+    # Базовые системные шрифты для отображения сайтов и интерфейсов
     noto-fonts
     noto-fonts-cjk-sans
-    # ИСПРАВЛЕНО: Актуальное имя пакета в unstable ветке
     noto-fonts-color-emoji
+    
+    # Пакет шрифтов MS (Arial, Times New Roman, Comic Sans)
+    corefonts
   ];
 
-  # Включаем базовое сглаживание и оптимизацию отображения
+  # Включаем сглаживание и оптимизацию отображения
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
