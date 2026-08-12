@@ -69,11 +69,9 @@ inputs: { pkgs, ... }: {
     ".config/sxhkd" = { source = ./dotfiles/sxhkd; recursive = true; };
     ".config/bspwm" = { source = ./dotfiles/bspwm; recursive = true; executable = true; };
 
-    # ИСПРАВЛЕНО: Железобетонный и синтаксически верный конфиг picom-pijulius
+    # ИСПРАВЛЕНО: Перевели Picom на ультра-плавный нативный бэкенд EGL для AMD Radeon
     ".config/picom/picom.conf".text = ''
-      backend = "glx";
-      glx-no-stencil = true;
-      glx-no-rebind-pixmap = true;
+      backend = "egl";
       vsync = true;
 
       # УЛУЧШЕННАЯ ФИЗИКА АНИМАЦИЙ
