@@ -1,18 +1,15 @@
 { pkgs, ... }: {
-  # Системная установка шрифтов под требования NixOS Unstable
+  # Системная установка шрифтов под требования актуальной ветки NixOS Unstable
   fonts.packages = with pkgs; [
-    # Твой основной шрифт для кода и терминала с иконками
+    # Главные шрифты сетапа Peyrzival
+    nerd-fonts.space-mono         
     nerd-fonts.jetbrains-mono
-    
-    # ПРИНУДИТЕЛЬНО: Ставим чистый пак символов и иконок для Polybar
-    nerd-fonts.symbols-only
+    nerd-fonts.symbols-only       # Включает в себя Feather, Material и FontAwesome иконки
 
-    # Базовые системные шрифты для отображения сайтов и интерфейсов
+    # Базовые системные шрифты
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
-    
-    # Пакет шрифтов MS (Arial, Times New Roman, Comic Sans)
     corefonts
   ];
 
@@ -20,9 +17,8 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font" ];
+      monospace = [ "SpaceMono Nerd Font" ];
       sansSerif = [ "Noto Sans" ];
     };
   };
 }
-

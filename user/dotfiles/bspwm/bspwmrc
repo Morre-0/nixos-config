@@ -9,7 +9,9 @@ pkill -9 -x dunst
 
 sxhkd &
 picom --config ~/.config/picom/picom.conf -b &
-polybar main &
+polybar left &
+polybar center &
+polybar right &
 dunst &
 
 if [ -f "$HOME/.current_wallpaper" ]; then

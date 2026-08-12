@@ -1,5 +1,5 @@
 {
-  description = "Чистая модульная конфигурация NixOS Unstable — Полный сетап";
+  description = "NixOS Unstable — Полный BSPWM Rice в стиле Gruvbox Material с раздельными капсулами";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -40,7 +40,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             
-            # ИСПРАВЛЕНО: Автоматически бэкапим конфликтующие файлы в домашней папке
+            # Настройка автоматического бэкапа конфликтующих файлов
             home-manager.backupFileExtension = "backup";
             
             home-manager.users.slfhrmfn = import ./user/home.nix inputs;
@@ -51,4 +51,3 @@
     };
   };
 }
-
