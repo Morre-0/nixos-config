@@ -23,11 +23,16 @@
     kdePackages.kate
     
     # Утилиты BSPWM
-    sxhkd          # Демон горячих клавиш (БЕЗ НЕГО ХОТКЕИ НЕ РАБОТАЮТ)
-    rofi           # Меню запуска приложений
-    alacritty      # Терминал для хоткея
-    feh            # Установка обоев рабочего стола
-    xclip          # Буфер обмена
+    sxhkd
+    polybar        # ИСПРАВЛЕНО: Родная панель для X11 вместо Waybar
+    rofi           # Классический X11 Rofi
+    dunst
+    feh
+    xclip
+    alacritty
+    gruvbox-plus-icons
+
+
   ];
 }
 
