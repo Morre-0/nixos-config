@@ -49,4 +49,10 @@ inputs: { pkgs, ... }: {
   };
 
   programs.home-manager.enable = true;
+  home.file = {
+    ".config/scripts" = { source = ./dotfiles/scripts; recursive = true; executable = true; };
+    ".config/alacritty" = { source = ./dotfiles/alacritty; recursive = true; };
+    ".config/polybar" = { source = ./dotfiles/polybar; recursive = true; };
+  };
+
 }

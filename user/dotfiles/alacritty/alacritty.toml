@@ -1,0 +1,37 @@
+# 🗔 Окно терминала
+[window]
+padding = { x = 12, y = 12 }
+decorations = "none"        # Убираем рамки, оставляем только чистый контент
+opacity = 0.88              # Прозрачность (picom превратит это в матовое стекло)
+blur = true
+
+# 🔤 Шрифты
+[font]
+size = 11.5
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+
+# 🎨 ЦВЕТОВАЯ ПАЛИТРА GRUVBOX MATERIAL (Medium Dark)
+[colors.primary]
+background = "#282828"
+foreground = "#dfddc8"
+
+[colors.normal]
+black   = "#282828"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#d8a657"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#dfddc8"
+
+[colors.bright]
+black   = "#928374"
+red     = "#ea6962"
+green   = "#a9b665"
+yellow  = "#d8a657"
+blue    = "#7daea3"
+magenta = "#d3869b"
+cyan    = "#89b482"
+white   = "#dfddc8"

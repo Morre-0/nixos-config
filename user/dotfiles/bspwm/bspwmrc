@@ -3,18 +3,34 @@
 # Настройка раскладки: Английская и Русская, переключение по CapsLock
 setxkbmap -layout "us,ru" -option "grp:caps_toggle,grp_led:scroll"
 
-# Автозапуск экосистемы Gruvbox
+# Принудительно очищаем старые процессы перед запуском
+killall -q picom polybar dunst sxhkd
+
+# 1. Автозапуск демона хоткеев sxhkd
+sxhkd &
+
+# 2. Автозапуск композитора picom-pijulius со всеми эффектами и анимациями
 picom --config ~/.config/picom/picom.conf -b &
-polybar main &  # ИСПРАВЛЕНО: Запуск панели Polybar с именем "main"
+
+# 3. Автозапуск статус-бара Polybar
+polybar main &
+
+# 4. Автозапуск сервера уведомлений
 dunst &
 
-# Рабочие столы
+# 5. ВОССТАНОВЛЕНИЕ ПОСЛЕДНИХ ОБОЕВ ПРИ ЗАГРУЗКЕ
+if [ -f "$HOME/.current_wallpaper" ]; then
+    feh --bg-fill "$(cat "$HOME/.current_wallpaper")"
+else
+    # Если файла нет — ставим просто сплошной цвет Gruvbox Material
+    feh --bg-color "#282828"
+fi
+
+# Настройки рабочих столов
 bspc monitor -d 1 2 3 4 5
 
-# Настройки окон в стиле Gruvbox Material
-bspc config border_width         3
-bspc config window_gap          14
-
-# Цвета Gruvbox
+# Геометрия окон в стиле Gruvbox
+bspc config border_width         2
+bspc config window_gap          12
 bspc config focused_border_color "#a9b665"
 bspc config normal_border_color  "#504945"

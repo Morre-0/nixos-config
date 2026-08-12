@@ -1,0 +1,31 @@
+# Запуск терминала Alacritty (Super + Enter)
+super + Return
+    alacritty
+
+# Запуск Zen Browser (Super + B)
+super + b
+    zen
+
+# Меню приложений Rofi (Super + R)
+super + r
+    rofi -show drun
+
+# Закрыть текущее окно (Super + Q)
+super + q
+    bspc node -c
+
+# Переключить окно в плавающий режим (Super + Space)
+super + space
+    bspc node -t \~floating
+
+# Выход из BSPWM назад в экран входа SDDM (Super + Shift + E)
+super + shift + e
+    bspc quit
+
+# Перемещение фокуса между окнами (Super + Стрелочки)
+super + {Left,Down,Up,Right}
+    bspc node -f {west,south,north,east}
+
+# Меню выбора обоев через Rofi (Super + W)
+super + w
+    ~/.config/scripts/rofi-wallpaper.sh
