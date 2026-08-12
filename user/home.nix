@@ -11,7 +11,7 @@ inputs: { pkgs, ... }: {
   programs.firefox = {
     enable = true;
     nativeMessagingHosts = with pkgs; [
-      pywalfox-native # Нативный мост для автопокраски шапки Firefox
+      pywalfox-native
     ];
   };
 
@@ -23,42 +23,38 @@ inputs: { pkgs, ... }: {
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      gruvbox-material         # Наша основная тема
-      lualine-nvim             # Красивая статус-строка внизу
-      nvim-web-devicons        # Иконки для статус-строки и平лагинов
+      gruvbox-material         
+      lualine-nvim             
+      nvim-web-devicons        
       (nvim-treesitter.withPlugins (p: [ 
         p.nix p.lua p.bash p.python p.json p.markdown p.yaml
-      ]))                      # Мощная TrueColor подсветка синтаксиса
+      ]))                      
     ];
 
     extraLuaConfig = ''
-      -- 1. Системные настройки интерфейса
-      vim.opt.number = true           -- Включаем нумерацию строк
-      vim.opt.relativenumber = true   -- Включаем относительные номера строк
-      vim.opt.termguicolors = true    -- Включаем 24-битные TrueColor цвета
-      vim.opt.tabstop = 4             -- Размер табуляции (4 пробела)
+      vim.opt.number = true           
+      vim.opt.relativenumber = true   
+      vim.opt.termguicolors = true    
+      vim.opt.tabstop = 4             
       vim.opt.shiftwidth = 4
-      vim.opt.expandtab = true        -- Превращать табы в пробелы
-      vim.opt.mouse = "a"             -- Включаем поддержку мыши
-      vim.clipboard = "unnamedplus"   -- Общий буфер обмена с системой (xclip)
-      vim.opt.smartindent = true      -- Умные автоотступы при вводе кода
-      vim.opt.wrap = false            -- Не переносить длинные строки автоматически
+      vim.opt.expandtab = true        
+      vim.opt.mouse = "a"             
+      vim.clipboard = "unnamedplus"   
+      vim.opt.smartindent = true      
+      vim.opt.wrap = false            
 
-      -- 2. Настройка палитры Gruvbox Material
-      vim.g.gruvbox_material_background = "medium" -- Варианты: 'hard', 'medium', 'soft'
+      vim.g.gruvbox_material_background = "medium" 
       vim.g.gruvbox_material_better_performance = 1
       vim.g.gruvbox_material_enable_bold = 1
 
-      -- 3. Активируем тему оформления
       vim.cmd("colorscheme gruvbox-material")
 
-      -- 4. Настройка статус-строки Lualine под тему Gruvbox
       require('lualine').setup({
         options = {
           theme = 'gruvbox-material',
           component_separators = { left = '╱', right = '╱' },
           section_separators = { left = '', right = '' },
-          globalstatus = true,       -- Одна монолитная строка внизу экрана
+          globalstatus = true,       
         }
       })
     '';
@@ -73,7 +69,7 @@ inputs: { pkgs, ... }: {
     ".config/sxhkd" = { source = ./dotfiles/sxhkd; recursive = true; };
     ".config/bspwm" = { source = ./dotfiles/bspwm; recursive = true; executable = true; };
 
-    # ДОБАВЛЕНО: Ультра-плавные и упругие анимации picom-pijulius
+    # ИСПРАВЛЕНО: Железобетонный и синтаксически верный конфиг picom-pijulius
     ".config/picom/picom.conf".text = ''
       backend = "glx";
       glx-no-stencil = true;
@@ -82,18 +78,16 @@ inputs: { pkgs, ... }: {
 
       # УЛУЧШЕННАЯ ФИЗИКА АНИМАЦИЙ
       animations = true;
-      animation-stiffness = 320.0;  # Быстрый и резкий старт окон
-      animation-dampening = 26.0;   # Упругий, приятный эффект отскока (bounce)
-      animation-clamping = false;   # Окна мягко пружинят в конце анимации
-      animation-mass = 0.8;         # Облегченный вес окон для моментального отклика
+      animation-stiffness = 320.0;  
+      animation-dampening = 26.0;   
+      animation-clamping = false;   
+      animation-mass = 0.8;         
 
-      # Настройки эффектов переключения
       animation-for-workspace-switch = "slide-left"; 
       animation-for-open-window = "zoom";
       animation-for-unmap-window = "zoom";
       animation-for-transient-window = "slide-up";
 
-      # ЭФФЕКТЫ РАЗМЫТИЯ И ТЕНИ GRUVBOX
       shadow = true;
       shadow-radius = 12;
       shadow-offset-x = -12;
