@@ -49,3 +49,7 @@ super + {1,2,3,4,5}
 super + shift + {1,2,3,4,5}
     bspc node -d {1,2,3,4,5}
 
+# Перезапуск всего окружения (Super + Shift + R)
+super + shift + r
+    bspc wm -r
+
