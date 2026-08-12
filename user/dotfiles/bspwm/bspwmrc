@@ -1,55 +1,34 @@
 #!/bin/sh
 
-# =================================================================
-# 🛠️ ЖЕСТКАЯ ОЧИСТКА ДУБЛИКАТОВ (Уничтожаем старые хвосты процессов)
-# =================================================================
+setxkbmap -layout "us,ru" -option "grp:caps_toggle,grp_led:scroll"
+
 pkill -9 -x sxhkd
 pkill -9 -x picom
 pkill -9 -x polybar
 pkill -9 -x dunst
 
-# =================================================================
-# ⌨️ НАСТРОЙКА КЛАВИАТУРЫ И ЯЗЫКА
-# =================================================================
-# Переключение раскладки US/RU по кнопке CapsLock, ScrollLock светодиод как индикатор
-setxkbmap -layout "us,ru" -option "grp:caps_toggle,grp_led:scroll"
-
-# =================================================================
-# 🚀 АВТОЗАПУСК ЭКОСИСТЕМЫ GRUVBOX RICE
-# =================================================================
-# Демон горячих клавиш (Обязательно первым)
 sxhkd &
-
-# Ультимативный композитор pijulius (Анимации скольжения + Blur)
 picom --config ~/.config/picom/picom.conf -b &
-
-# Статус-бар Polybar (Запуск панели с именем main)
 polybar main &
-
-# Сервер системных уведомлений
 dunst &
 
-# =================================================================
-#    АВТОМАТИЧЕСКОЕ ВОССТАНОВЛЕНИЕ ОБОЕВ
-# =================================================================
 if [ -f "$HOME/.current_wallpaper" ]; then
     feh --bg-fill "$(cat "$HOME/.current_wallpaper")"
 else
-    # Если файла нет — ставим дефолтный цветок или фон Gruvbox Material
     feh --bg-fill "$HOME/Pictures/Wallpapers/flower-1.jpg" 2>/dev/null || feh --bg-color "#282828"
 fi
 
-# =================================================================
-# 🗔 НАСТРОЙКИ МОНИТОРОВ И ОКН BSPWM
-# =================================================================
-# Создаем 5 рабочих столов
 bspc monitor -d 1 2 3 4 5
-
-# Толщина рамок окон и внутренние отступы (Gaps)
 bspc config border_width         2
 bspc config window_gap          12
-
-# Цвета границ окон в стиле Gruvbox Material
-bspc config focused_border_color "#a9b665"  # Мягкий зеленый Gruvbox для активного окна
-bspc config normal_border_color  "#504945"  # Темно-серый для неактивных окон
+bspc config focused_border_color "#a9b665"  
+bspc config normal_border_color  "#504945"  
 bspc config split_ratio          0.52
+
+# УМНЫЕ ПРАВИЛА ЦЕНТРИРОВАНИЯ ОКН
+bspc config focus_by_shift               true
+bspc config history_aware_focus          true
+bspc config center_pseudo_tiled          true
+bspc rule -a Rofi state=floating center=true
+bspc rule -a Pavucontrol state=floating center=true
+bspc rule -a Lxappearance state=floating center=true

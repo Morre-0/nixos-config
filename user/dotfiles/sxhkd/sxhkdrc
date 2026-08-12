@@ -1,8 +1,3 @@
-# -----------------------------------------------------------------
-# 🔥 УЛЬТИМАТИВНЫЙ SXHKDRC ДЛЯ GRUVBOX BSPWM RICE
-# -----------------------------------------------------------------
-
-# 1. ЗАПУСК ПРОГРАММ
 # Запуск терминала Alacritty (Super + Enter)
 super + Return
     alacritty
@@ -19,7 +14,6 @@ super + r
 super + w
     ~/.config/scripts/rofi-wallpaper.sh
 
-# 2. УПРАВЛЕНИЕ ОКНАМИ
 # Закрыть текущее окно (Super + Q)
 super + q
     bspc node -c
@@ -32,6 +26,10 @@ super + space
 super + f
     bspc node -t toggle_fullscreen
 
+# Перезапуск всего окружения (Super + Shift + R)
+super + shift + r
+    bspc wm -r
+
 # Выход из BSPWM назад в экран входа SDDM (Super + Shift + E)
 super + shift + e
     bspc quit
@@ -40,16 +38,22 @@ super + shift + e
 super + {Left,Down,Up,Right}
     bspc node -f {west,south,north,east}
 
-# 3. ИСПРАВЛЕНО: УПРАВЛЕНИЕ РАБОЧИМИ СТОЛАМИ (TAGS 1-5)
-# Переключение на рабочий стол (Super + Цифра от 1 до 5)
+# Управление рабочими столами
 super + {1,2,3,4,5}
     bspc desktop -f {1,2,3,4,5}
 
-# Перенос активного окна на другой рабочий стол (Super + Shift + Цифра от 1 до 5)
 super + shift + {1,2,3,4,5}
     bspc node -d {1,2,3,4,5}
 
-# Перезапуск всего окружения (Super + Shift + R)
-super + shift + r
-    bspc wm -r
+# МУЛЬТИМЕДИА ХОТКЕИ ДЛЯ TECNO MEGABOOK (ЗВУК И ЯРКОСТЬ)
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+XF86MonBrightnessUp
+    brightnessctl set +5%
+XF86MonBrightnessDown
+    brightnessctl set 5%-
