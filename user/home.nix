@@ -13,14 +13,13 @@ inputs: { pkgs, ... }: {
     nativeMessagingHosts = with pkgs; [ pywalfox-native ];
   };
 
-  # УЛЬТИМАТИВНАЯ ДЕКЛАРАТИВНАЯ НАСТРОЙКА NEOVIM (GRUVBOX MATERIAL С ПЛАГИНАМИ)
+  # УЛЬТИМАТИВНАЯ ДЕКЛАРАТИВНАЯ НАСТРОЙКА NEOVIM (ИСПРАВЛЕНО ПОД NEW TREESITTER)
   programs.neovim = {
     enable = true;
-    defaultEditor = true; # Делаем Neovim стандартным редактором в системе
+    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
 
-    # Устанавливаем тему и плагины напрямую через Nix пакеты
     plugins = with pkgs.vimPlugins; [
       gruvbox-material         # Наша основная тема
       lualine-nvim             # Красивая статус-строка внизу
@@ -30,17 +29,16 @@ inputs: { pkgs, ... }: {
       ]))                      # Мощная TrueColor подсветка синтаксиса
     ];
 
-    # Конфигурация редактора на чистом Lua
     extraLuaConfig = ''
       -- 1. Системные настройки интерфейса
       vim.opt.number = true           -- Включаем нумерацию строк
-      vim.opt.relativenumber = true   -- Включаем относительные номера строк (удобно для навигации)
-      vim.opt.termguicolors = true    -- Включаем 24-битные TrueColor цвета (критично для Gruvbox)
+      vim.opt.relativenumber = true   -- Включаем относительные номера строк
+      vim.opt.termguicolors = true    -- Включаем 24-битные TrueColor цвета
       vim.opt.tabstop = 4             -- Размер табуляции (4 пробела)
       vim.opt.shiftwidth = 4
       vim.opt.expandtab = true        -- Превращать табы в пробелы
       vim.opt.mouse = "a"             -- Включаем поддержку мыши
-      vim.opt.clipboard = "unnamedplus" -- Общий буфер обмена с системой (X11/xclip)
+      vim.clipboard = "unnamedplus"   -- Общий буфер обмена с системой (xclip)
       vim.opt.smartindent = true      -- Умные автоотступы при вводе кода
       vim.opt.wrap = false            -- Не переносить длинные строки автоматически
 
@@ -62,14 +60,8 @@ inputs: { pkgs, ... }: {
         }
       })
 
-      -- 5. Настройка парсера Treesitter для глубокой подсветки синтаксиса
-      require('nvim-treesitter.configs').setup({
-        highlight = {
-          enable = true,             -- Включаем Treesitter подсветку
-          additional_vim_regex_highlighting = false,
-        },
-        indent = { enable = true }   -- Умные автоотступы на базе синтаксиса
-      })
+      -- ИСПРАВЛЕНО: Старый require('nvim-treesitter.configs').setup удален,
+      -- так как новый Treesitter в NixOS инициализируется автоматически.
     '';
   };
 
