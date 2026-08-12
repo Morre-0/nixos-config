@@ -1,13 +1,11 @@
-{ pkgs, ... }: {
-  # Включаем базовые графические службы Xserver
+{ pkgs, inputs, ... }: {
+  # Включаем графический сервер X11
   services.xserver = {
     enable = true;
-    
-    # ДОБАВЛЕНО: Включаем bspwm параллельно с KDE
     windowManager.bspwm.enable = true;
   };
 
-  # Включаем современный дисплейный менеджер SDDM (Экран входа)
+  # Включаем дисплейный менеджер SDDM
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true; 
@@ -18,21 +16,21 @@
 
   # Полный набор утилит для KDE и твоего хакерского BSPWM Rice
   environment.systemPackages = with pkgs; [
-    # Утилиты KDE
     kdePackages.konsole
     kdePackages.kate
     
-    # Утилиты BSPWM
+    # Экосистема для BSPWM Rice
     sxhkd
-    polybar        # ИСПРАВЛЕНО: Родная панель для X11 вместо Waybar
-    rofi           # Классический X11 Rofi
+    polybar        
+    rofi           
     dunst
     feh
     xclip
-    alacritty
+    alacritty      
     gruvbox-plus-icons
 
-
+    # ИСПРАВЛЕНО: Устанавливаем форк pijulius глобально для всей системы
+    inputs.picom-pijulius.packages."${pkgs.system}".default
   ];
 }
 

@@ -1,7 +1,6 @@
 { ... }: {
 
   imports = [
-    # Аппаратная часть
     ./hardware-configuration.nix
 
     # Системное ядро и загрузка
@@ -17,7 +16,7 @@
     ./modules/system/fonts.nix
     ./modules/system/hardware-tecno.nix
 
-    # Графическое окружение (ИСПРАВЛЕНО: Ультра-плавная KDE Plasma 6)
+    # Графическое окружение
     ./modules/desktop/kde.nix
   ];
 
